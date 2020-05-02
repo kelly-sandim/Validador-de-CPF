@@ -10,9 +10,29 @@ function validaCPF(cpf) {
         var soma = 0;
         for(var i = 10; i > 1; i --) {
             soma += numeros.charAt(10 - i) * i;
-        }
-        console.log(soma);
+        }        
+
+        var resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11); //economizar if/else
+
+        //validação do primeiro dígito
+        if(resultado !=  digitos.charAt(0)) {
+            return false;
+        } 
         
+        soma = 0; //reseta variável para não dar B.O.
+        numeros = cpf.substring(0, 10);
+
+        for(var k = 11; k > 1; k--) {
+            soma += numeros.charAt(11 - k) * k;
+        }        
+        
+        resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);        
+
+        //validação do segundo dígito
+        if(resultado != digitos.charAt(1)) {
+            return false;
+        }
+
         return true;
     }
 }
